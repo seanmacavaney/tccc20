@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Benford.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,17 @@ namespace Benford.Controllers
 {
     public class HomeController : Controller
     {
+        public IBenfordService BenfordService { get; set; }
+
+        public HomeController()
+        {
+            this.BenfordService = new BenfordService();
+        }
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var model = this.BenfordService.Analyze();
+            return View(model);
         }
     }
 }
