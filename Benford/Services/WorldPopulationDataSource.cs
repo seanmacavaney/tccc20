@@ -29,7 +29,7 @@ namespace Benford.Services
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.reader.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Benford.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,12 @@ namespace Benford
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var interfaceMap = new Dictionary<Type, Type>();
+            interfaceMap[typeof(IBenfordService)] = typeof(BenfordService);
+            interfaceMap[typeof(IBenfordDataSource)] = typeof(WorldPopulationDataSource);
+
+            DependencyResolver.SetResolver(new AwesomeDependencyResolver(interfaceMap));
         }
     }
 }

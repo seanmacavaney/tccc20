@@ -11,9 +11,9 @@ namespace Benford.Controllers
     {
         public IBenfordService BenfordService { get; set; }
 
-        public HomeController()
+        public HomeController(IBenfordService benfordService)
         {
-            this.BenfordService = new BenfordService();
+            this.BenfordService = benfordService;
         }
 
         public ActionResult Index()

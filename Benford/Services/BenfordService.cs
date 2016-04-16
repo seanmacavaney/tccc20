@@ -15,9 +15,9 @@ namespace Benford.Services
     {
         public IBenfordDataSource DataSource { get; set; }
 
-        public BenfordService()
+        public BenfordService(IBenfordDataSource dataSource)
         {
-            this.DataSource = new WorldPopulationDataSource();
+            this.DataSource = dataSource;
         }
 
         public BenfordResult Analyze()
