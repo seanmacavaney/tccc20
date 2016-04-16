@@ -22,7 +22,7 @@ namespace Benford.Services
 
         public BenfordResult Analyze()
         {
-            var data = this.DataSource.GetData();
+            var data = this.DataSource.GetData().ToList();
             var count = data.Count();
             return new BenfordResult()
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,20 +7,29 @@ using System.Web;
 
 namespace Benford.Services
 {
-    public class WorldPopulationDataSource : IBenfordDataSource
+    public class WorldPopulationDataSource : IBenfordDataSource, IDisposable
     {
+        private StreamReader reader;
+
         public string Name { get { return "World Populations"; } }
+
+        public WorldPopulationDataSource()
+        {
+            reader = File.OpenText(@"C:\data\populations.csv");
+        }
 
         public IEnumerable<double> GetData()
         {
-            using (StreamReader reader = File.OpenText(@"C:\data\populations.csv"))
+            var csv = new CsvReader(reader);
+            while (csv.Read())
             {
-                var csv = new CsvHelper.CsvReader(reader);
-                while (csv.Read())
-                {
-                    yield return csv.GetField<double>(@"Value");
-                }
+                yield return csv.GetField<double>(@"Value");
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
